@@ -1,0 +1,43 @@
+internal class Program
+{
+    static int FirstPlayerPadSize = 4;
+    static int SecondPlayerPadSize = 4;
+
+    static int BallPositionX = 0;
+    static int BallPositionY = 0;
+
+    static int FirstPlayerPosition = 0;
+    static int SecondplayerPosition = 0;
+    static void RemoveScrollBars()
+    {
+        Console.BufferHeight = Console.WindowHeight;
+        Console.BufferWidth = Console.WindowWidth;
+    }
+
+    static void DrawFirstPlayer()
+    {
+        for (int y = 0; y < FirstPlayerPadSize; y++)
+        {
+            PrintAtPosition ()
+        }
+    }
+
+    static void DrawSecontPlayer()
+    {
+
+    }
+    private static void Main(string[] args)
+    {
+        
+
+        RemoveScrollBars();
+
+
+        while (true)
+        {
+            Thread.Sleep(60);
+            
+
+        }
+    }
+}
