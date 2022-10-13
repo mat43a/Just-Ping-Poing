@@ -7,37 +7,130 @@ internal class Program
     static int BallPositionY = 0;
 
     static int FirstPlayerPosition = 0;
-    static int SecondplayerPosition = 0;
+    static int SecondPlayerPosition = 0;
+
+    static int FristPlaerResult = 0;
+    static int SeconPlaerResult =0;
     static void RemoveScrollBars()
     {
+        Console.ForegroundColor = ConsoleColor.Yellow;  
         Console.BufferHeight = Console.WindowHeight;
         Console.BufferWidth = Console.WindowWidth;
     }
 
     static void DrawFirstPlayer()
     {
-        for (int y = 0; y < FirstPlayerPadSize; y++)
+        for (int y = FirstPlayerPosition; y < FirstPlayerPosition + FirstPlayerPadSize; y++)
         {
-            PrintAtPosition ()
+            PrintAtPosition(0, y, "|");
+            PrintAtPosition(1, y, "|");
         }
+
+
+    }
+
+    static void PrintAtPosition(int x, int y, string symbol)
+    {
+        Console.SetCursorPosition(x, y);
+        Console.Write(symbol);
     }
 
     static void DrawSecontPlayer()
     {
+        for (int y = SecondPlayerPosition; y < SecondPlayerPosition + SecondPlayerPadSize; y++)
+        {
+            PrintAtPosition(Console.WindowWidth -1 , y, "|");
+            PrintAtPosition(Console.WindowWidth -2, y, "|");
+        }
+    }
+    static void SetInitialPosition()
+    {
+        FirstPlayerPosition = Console.WindowHeight /2 - FirstPlayerPadSize / 2;
+        SecondPlayerPosition = Console.WindowHeight / 2 - SecondPlayerPadSize / 2;
+        BallPositionX = Console.WindowWidth / 2;
+        BallPositionY = Console.WindowHeight / 2;
+    }
+    static void DrawBall()
+    {
+        PrintAtPosition(BallPositionX, BallPositionY, "@");   
+    }
+    static void PrintResult()
+    {
+        Console.SetCursorPosition(Console.WindowWidth / 2 - 1, 0);
+        Console.Write("{0}-{1}", FristPlaerResult, SeconPlaerResult);
+    }
+    static void MoveFirstPlaerUp()
+    {
+        if (FirstPlayerPosition > 0)
+        {
+            FirstPlayerPosition--;
+        }
+        
+    }
+    static void MoveFirstPlaerDown()
+    {
+        if (FirstPlayerPosition < Console.WindowHeight - FirstPlayerPadSize)
+        {
+            FirstPlayerPosition++;
+        }
+        
 
+    }
+    static void MoveSecondPlaerUp()
+    {
+        if (SecondPlayerPosition > 0)
+        {
+            SecondPlayerPosition--;
+        }
+
+    }
+    static void MoveSecondPlaerDown()
+    {
+        if (SecondPlayerPosition < Console.WindowHeight - SecondPlayerPadSize)
+        {
+            SecondPlayerPosition++;
+        }
+
+    }
+    static void secondPlaeyrAIMove()
+    {
+         
     }
     private static void Main(string[] args)
     {
         
 
         RemoveScrollBars();
-
+        SetInitialPosition();
 
         while (true)
         {
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+                if (keyInfo.Key == ConsoleKey.UpArrow)
+                {
+                    MoveFirstPlaerUp();
+                }
+                if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    MoveFirstPlaerDown();
+                }
+
+            }
+            
+            Console.Clear();
+            DrawFirstPlayer();
+            DrawSecontPlayer();
+            DrawBall();
+            PrintResult();
+
+
             Thread.Sleep(60);
             
-
         }
     }
+
+    
 }
